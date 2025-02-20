@@ -1,4 +1,11 @@
+import { useState } from "react"
+
 export default function SearchBar() {
+    const [criteria, setCriteria] = useState({
+        search: '',
+        criteria: ''
+    })
+
 
     return (
         <form className="search-form">
@@ -25,11 +32,14 @@ export default function SearchBar() {
                     type="text"
                     placeholder="Please, select the search criteria"
                     name="search"
+                    onChange={onChange}
+                    value={criteria.search}
                 />
                 {/* <!-- Show the clear button only if input field length !== 0 --> */}
-                <button className="btn close-btn">
-                    <i className="fa-solid fa-xmark"></i>
-                </button>
+                {criteria.search &&
+                    <button onClick={onClear} className="btn close-btn">
+                        <i className="fa-solid fa-xmark"></i>
+                    </button>}
 
                 <button className="btn" title="Please, select the search criteria">
                     <i className="fa-solid fa-magnifying-glass"></i>
@@ -38,14 +48,22 @@ export default function SearchBar() {
 
             <div className="filter">
                 <span>Search Criteria:</span>
-                <select name="criteria" className="criteria">
+                <select name="criteria" className="criteria" onChange={onChange} value={criteria.criteria}>
                     <option value="">Not selected</option>
-                    <option value="">First Name</option>
-                    <option value="">Last Name</option>
-                    <option value="">Email</option>
-                    <option value="">Phone</option>
+                    <option value="firstName">First Name</option>
+                    <option value="lastName">Last Name</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone</option>
                 </select>
             </div>
         </form>
     )
+
+    function onChange(e) {
+        setCriteria(state => ({ ...state, [e.target.name]: e.target.value }))
+    }
+    function onClear(e) {
+        e.preventDefault()
+        setCriteria(state => ({ ...state, search: '' }))
+    }
 }
