@@ -1,4 +1,20 @@
+import { useState } from "react"
+
 export default function SearchBar() {
+    const [input, setInput] = useState({
+        search: '',
+        criteria: ''
+    })
+
+    function onChange(e) {
+        const { name, value } = e.target;
+        setInput((state) => {
+            return { ...state, [name]: value };
+        })
+    }
+    function clearInputField() {
+        setInput(state => ({ ...state, search: '' }))
+    }
     return (
         <form className="search-form">
             <h2>
@@ -24,11 +40,13 @@ export default function SearchBar() {
                     type="text"
                     placeholder="Please, select the search criteria"
                     name="search"
+                    value={input.search}
+                    onChange={onChange}
                 />
                 {/* <!-- Show the clear button only if input field length !== 0 --> */}
-                <button className="btn close-btn">
+                {input.search && <button onClick={clearInputField} className="btn close-btn">
                     <i className="fa-solid fa-xmark"></i>
-                </button>
+                </button>}
 
                 <button className="btn" title="Please, select the search criteria">
                     <i className="fa-solid fa-magnifying-glass"></i>
@@ -37,12 +55,12 @@ export default function SearchBar() {
 
             <div className="filter">
                 <span>Search Criteria:</span>
-                <select name="criteria" className="criteria">
+                <select name="criteria" className="criteria" value={input.criteria} onChange={onChange}>
                     <option value="">Not selected</option>
-                    <option value="">First Name</option>
-                    <option value="">Last Name</option>
-                    <option value="">Email</option>
-                    <option value="">Phone</option>
+                    <option value="firstName">First Name</option>
+                    <option value="lastName">Last Name</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone</option>
                 </select>
             </div>
         </form>
