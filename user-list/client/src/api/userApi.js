@@ -6,4 +6,11 @@ function getAll() {
 function createUser(data) {
   return restApi.post('/jsonstore/users', data);
 }
-export default { getAll, createUser };
+function deleteUser(userId) {
+  return restApi.del('/jsonstore/users/' + userId);
+}
+export default {
+  getAll,
+  createUser,
+  deleteUser,
+};
