@@ -1,14 +1,55 @@
-export default function CreateEditForm() {
+import { useState } from "react";
+import userApi from "../../api/userApi";
 
+export default function CreateEditForm({
+    closeModal,
+    setUsers
+
+}) {
+    const [formState, setFormState] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        imageUrl: '',
+        phoneNumber: '',
+        createdAt: '',
+        updatedAt: '',
+        address: {
+            country: '',
+            city: '',
+            street: '',
+            streetNumber: ''
+        }
+    })
+    function onChange(e) {
+        const { name, value } = e.target;
+        setFormState((state) => {
+            const newState = { ...state };
+            if (name == 'country' || name == 'city' || name == 'street' || name == 'streetNumber') {
+                newState.address[name] = value;
+            } else {
+                newState[name] = value
+            }
+            return newState;
+        })
+    }
+    async function onCreate(e) {
+        e.preventDefault();
+        const date = new Date().toISOString();
+        const data = { ...formState, updatedAt: date, createdAt: date };
+        const newUser = await userApi.createUser(data)
+        setUsers(state => ([...state, newUser]))
+        closeModal()
+    }
     return (
         //  < !--Create / Edit Form component-- >
         < div className="overlay" >
-            <div className="backdrop"></div>
+            <div onClick={closeModal} className="backdrop"></div>
             <div className="modal">
                 <div className="user-container">
                     <header className="headers">
                         <h2>Edit User/Add User</h2>
-                        <button className="btn close">
+                        <button onClick={closeModal} className="btn close">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="xmark"
                                 className="svg-inline--fa fa-xmark" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                                 <path fill="currentColor"
@@ -23,14 +64,14 @@ export default function CreateEditForm() {
                                 <label htmlFor="firstName">First name</label>
                                 <div className="input-wrapper">
                                     <span><i className="fa-solid fa-user"></i></span>
-                                    <input id="firstName" name="firstName" type="text" />
+                                    <input id="firstName" name="firstName" type="text" onChange={onChange} value={formState.firstName} />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="lastName">Last name</label>
                                 <div className="input-wrapper">
                                     <span><i className="fa-solid fa-user"></i></span>
-                                    <input id="lastName" name="lastName" type="text" />
+                                    <input id="lastName" name="lastName" type="text" onChange={onChange} value={formState.lastName} />
                                 </div>
                             </div>
                         </div>
@@ -40,14 +81,14 @@ export default function CreateEditForm() {
                                 <label htmlFor="email">Email</label>
                                 <div className="input-wrapper">
                                     <span><i className="fa-solid fa-envelope"></i></span>
-                                    <input id="email" name="email" type="text" />
+                                    <input id="email" name="email" type="text" onChange={onChange} value={formState.email} />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="phoneNumber">Phone number</label>
                                 <div className="input-wrapper">
                                     <span><i className="fa-solid fa-phone"></i></span>
-                                    <input id="phoneNumber" name="phoneNumber" type="text" />
+                                    <input id="phoneNumber" name="phoneNumber" type="text" onChange={onChange} value={formState.phoneNumber} />
                                 </div>
                             </div>
                         </div>
@@ -56,7 +97,7 @@ export default function CreateEditForm() {
                             <label htmlFor="imageUrl">Image Url</label>
                             <div className="input-wrapper">
                                 <span><i className="fa-solid fa-image"></i></span>
-                                <input id="imageUrl" name="imageUrl" type="text" />
+                                <input id="imageUrl" name="imageUrl" type="text" onChange={onChange} value={formState.imageUrl} />
                             </div>
                         </div>
 
@@ -65,14 +106,14 @@ export default function CreateEditForm() {
                                 <label htmlFor="country">Country</label>
                                 <div className="input-wrapper">
                                     <span><i className="fa-solid fa-map"></i></span>
-                                    <input id="country" name="country" type="text" />
+                                    <input id="country" name="country" type="text" onChange={onChange} value={formState.address.country} />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="city">City</label>
                                 <div className="input-wrapper">
                                     <span><i className="fa-solid fa-city"></i></span>
-                                    <input id="city" name="city" type="text" />
+                                    <input id="city" name="city" type="text" onChange={onChange} value={formState.address.city} />
                                 </div>
                             </div>
                         </div>
@@ -82,20 +123,20 @@ export default function CreateEditForm() {
                                 <label htmlFor="street">Street</label>
                                 <div className="input-wrapper">
                                     <span><i className="fa-solid fa-map"></i></span>
-                                    <input id="street" name="street" type="text" />
+                                    <input id="street" name="street" type="text" onChange={onChange} value={formState.address.street} />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="streetNumber">Street number</label>
                                 <div className="input-wrapper">
                                     <span><i className="fa-solid fa-house-chimney"></i></span>
-                                    <input id="streetNumber" name="streetNumber" type="text" />
+                                    <input id="streetNumber" name="streetNumber" type="text" onChange={onChange} value={formState.address.streetNumber} />
                                 </div>
                             </div>
                         </div>
                         <div id="form-actions">
-                            <button id="action-save" className="btn" type="submit">Save</button>
-                            <button id="action-cancel" className="btn" type="button">
+                            <button onClick={onCreate} id="action-save" className="btn" type="submit">Save</button>
+                            <button onClick={closeModal} id="action-cancel" className="btn" type="button">
                                 Cancel
                             </button>
                         </div>

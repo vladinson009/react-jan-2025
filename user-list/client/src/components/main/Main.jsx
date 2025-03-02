@@ -12,8 +12,6 @@ export default function Main() {
                 <SearchBar />
                 {/* <!-- Table component --> */}
                 <TableComponent />
-                {/* <!-- New user button  --> */}
-                <button className="btn-add btn">Add new user</button>
                 {/* <!-- Pagination component  --> */}
                 <Pagination />
             </section>

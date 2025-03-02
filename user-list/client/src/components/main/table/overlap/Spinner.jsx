@@ -1,4 +1,4 @@
-export default function spinner() {
+export default function Spinner() {
 
     {/* < !--Loading spinner-- > */ }
     return (
