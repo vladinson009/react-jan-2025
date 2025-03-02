@@ -1,14 +1,27 @@
-export default function DeleteUser() {
+import userApi from "../../api/userApi";
 
+export default function DeleteUser({ user, closeModal, setUsers, setIsLoading, setIsError }) {
+    async function onDelete() {
+        try {
+            closeModal();
+            setIsLoading(true);
+            await userApi.deleteUser(user._id);
+            setUsers(state => state.filter(el => el._id != user._id));
+        } catch (error) {
+            setIsError(true);
+        } finally {
+            setIsLoading(false);
+        }
+    }
     return (
         //  < !--Delete user component-- >
         < div className="overlay" >
-            <div className="backdrop"></div>
+            <div onClick={closeModal} className="backdrop"></div>
             <div className="modal">
                 <div className="confirm-container">
                     <header className="headers">
                         <h2>Are you sure you want to delete this account?</h2>
-                        <button className="btn close">
+                        <button onClick={closeModal} className="btn close">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="xmark"
                                 className="svg-inline--fa fa-xmark" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                                 <path fill="currentColor"
@@ -19,8 +32,8 @@ export default function DeleteUser() {
                     </header>
                     <div className="actions">
                         <div id="form-actions">
-                            <button id="action-save" className="btn" type="submit">Delete</button>
-                            <button id="action-cancel" className="btn" type="button">
+                            <button onClick={onDelete} id="action-save" className="btn" type="submit">Delete</button>
+                            <button onClick={closeModal} id="action-cancel" className="btn" type="button">
                                 Cancel
                             </button>
                         </div>
