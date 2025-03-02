@@ -1,14 +1,15 @@
 import dateParser from "../../../utils/dateParser";
 
 export default function TableRow({
-    //_id,
+    _id,
     firstName,
     lastName,
     email,
     phoneNumber,
     createdAt,
     imageUrl,
-    //address
+    address,
+    onShowModal,
 }) {
 
     return (
@@ -27,7 +28,7 @@ export default function TableRow({
             <td>{dateParser(createdAt)}</td>
 
             <td className="actions">
-                <button className="btn edit-btn" title="Edit">
+                <button onClick={onShowModal.bind(null, 'edit', _id)} className="btn edit-btn" title="Edit">
                     <svg
                         aria-hidden="true"
                         focusable="false"
@@ -44,7 +45,7 @@ export default function TableRow({
                         ></path>
                     </svg>
                 </button>
-                <button className="btn delete-btn" title="Delete">
+                <button onClick={onShowModal.bind(null, 'delete', _id)} className="btn delete-btn" title="Delete">
                     <svg
                         aria-hidden="true"
                         focusable="false"
@@ -61,7 +62,7 @@ export default function TableRow({
                         ></path>
                     </svg>
                 </button>
-                <button className="btn info-btn" title="Info">
+                <button onClick={onShowModal.bind(null, 'info', _id)} className="btn info-btn" title="Info">
                     <svg
                         aria-hidden="true"
                         focusable="false"

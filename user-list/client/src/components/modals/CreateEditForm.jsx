@@ -3,7 +3,10 @@ import userApi from "../../api/userApi";
 
 export default function CreateEditForm({
     closeModal,
-    setUsers
+    setUsers,
+    user,
+    setIsLoading,
+    setIsError,
 
 }) {
     const [formState, setFormState] = useState({
@@ -40,6 +43,9 @@ export default function CreateEditForm({
         const newUser = await userApi.createUser(data)
         setUsers(state => ([...state, newUser]))
         closeModal()
+    }
+    async function onEdit() {
+        e.preventDefault();
     }
     return (
         //  < !--Create / Edit Form component-- >

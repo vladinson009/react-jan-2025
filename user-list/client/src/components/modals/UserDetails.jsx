@@ -1,4 +1,4 @@
-export default function UserDetails() {
+export default function UserDetails({ user, closeModal, setIsError }) {
 
     return (
         //  < !--User details component-- >
