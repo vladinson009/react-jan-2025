@@ -12,7 +12,8 @@ export default function TableComponent() {
     const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
-    const [isModal, setIsModal] = useState({ create: false, edit: false, delete: false, details: false });
+    const [isModal, setIsModal] = useState({ create: false, edit: false, delete: false, info: false });
+    const [selectedUSer, setSelectedUser] = useState({});
 
     useEffect(() => {
         (async function () {
@@ -29,9 +30,11 @@ export default function TableComponent() {
         })()
     }, [])
 
-    function onCreateModal() {
-        setIsModal(state => ({ ...state, create: true }));
+    function onShowModal(type, _id) {
+        _id ? setSelectedUser(users.find(el => el._id == _id)) : null
+        setIsModal(state => ({ ...state, [type]: true }));
     }
+
     function onCloseModal() {
         setIsModal((state) => {
             const newState = {};
@@ -44,15 +47,16 @@ export default function TableComponent() {
     return (
         <>
             <div className="table-wrapper">
-                {isModal.create ? <CreateEditForm closeModal={onCloseModal} setUsers={setUsers} />
-                    : isModal.edit ? <CreateEditForm closeModal={onCloseModal} />
-                        : isModal.delete ? <DeleteUser closeModal={onCloseModal} />
-                            : isModal.details ? <UserDetails closeModal={onCloseModal} />
+                {isModal.create ? <CreateEditForm closeModal={onCloseModal} setUsers={setUsers} setIsLoading={setIsLoading} setIsError={setIsError} />
+                    : isModal.edit ? <CreateEditForm closeModal={onCloseModal} setUsers={setUsers} setIsLoading={setIsLoading} setIsError={setIsError} user={selectedUSer} />
+                        : isModal.delete ? <DeleteUser closeModal={onCloseModal} setUsers={setUsers} setIsLoading={setIsLoading} setIsError={setIsError} user={selectedUSer} />
+                            : isModal.info ? <UserDetails closeModal={onCloseModal} setIsError={setIsError} user={selectedUSer} />
                                 : null}
-
                 {/* <!-- Overlap components  --> */}
                 {isLoading
-                    ? <Spinner /> : isError ? <OnError />
+                    ? <Spinner />
+                    : isError
+                        ? <OnError />
                         : users.length < 1
                             ? <NoUsers />
                             : <table className="table">
@@ -150,7 +154,7 @@ export default function TableComponent() {
                                 </thead>
                                 <tbody>
                                     {/* <!-- Table row component --> */}
-                                    {users.map(user => <TableRow key={user._id} {...user} />)}
+                                    {users.map(user => <TableRow key={user._id} {...user} onShowModal={onShowModal} />)}
 
                                 </tbody>
                             </table>
@@ -158,7 +162,7 @@ export default function TableComponent() {
 
             </div >
             {/* <!-- New user button  --> */}
-            <button onClick={onCreateModal} className="btn-add btn">Add new user</button>
+            <button onClick={onShowModal.bind(null, 'create')} className="btn-add btn">Add new user</button>
         </>
     )
 }
