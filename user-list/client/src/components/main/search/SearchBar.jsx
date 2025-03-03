@@ -1,10 +1,38 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { MyContext } from "../../../hooks/userContext";
+import userApi from "../../../api/userApi";
 
 export default function SearchBar() {
-    const [input, setInput] = useState({
-        search: '',
-        criteria: ''
-    })
+    const { setUsers, setIsLoading, setIsError } = useContext(MyContext);
+    const [input, setInput] = useState({ search: '', criteria: '' });
+    function onSearch(e) {
+        e.preventDefault();
+        setIsLoading(true);
+        userApi.getAll().then(result => {
+            const filteredUsers = Object.values(result)
+                .filter((el) => {
+                    if (input.criteria) {
+                        return el[input.criteria]
+                            .toLowerCase()
+                            .includes(input.search.toLowerCase())
+                    } else {
+                        return Object.values(el)
+                            .some(value => {
+                                if (typeof value == 'string') {
+                                    return value
+                                        .toLowerCase()
+                                        .includes(input.search.toLowerCase());
+                                }
+                            })
+                    }
+                })
+            setUsers(filteredUsers);
+        }).catch(err => {
+            setIsError(true);
+        }).finally(() => {
+            setIsLoading(false)
+        })
+    }
 
     function onChange(e) {
         const { name, value } = e.target;
@@ -13,7 +41,7 @@ export default function SearchBar() {
         })
     }
     function clearInputField() {
-        setInput(state => ({ ...state, search: '' }))
+        setInput({ criteria: '', search: '' })
     }
     return (
         <form className="search-form">
@@ -48,7 +76,7 @@ export default function SearchBar() {
                     <i className="fa-solid fa-xmark"></i>
                 </button>}
 
-                <button className="btn" title="Please, select the search criteria">
+                <button onClick={onSearch} className="btn" title="Please, select the search criteria">
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
