@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import userApi from "../../api/userApi";
 
 export default function CreateEditForm({
@@ -15,8 +15,8 @@ export default function CreateEditForm({
         email: '',
         imageUrl: '',
         phoneNumber: '',
-        createdAt: '',
-        updatedAt: '',
+        createdAt: true,
+        updatedAt: true,
         address: {
             country: '',
             city: '',
@@ -24,7 +24,23 @@ export default function CreateEditForm({
             streetNumber: ''
         }
     }
-    const [formState, setFormState] = useState(user ? user : initialValue)
+    const [formState, setFormState] = useState(user ? user : initialValue);
+    const isValidInput = useCallback((formState) => {
+        for (const key in formState) {
+            if (key == 'address') {
+                for (const adr in formState[key]) {
+                    if (formState[key][adr] == '') {
+                        return false;
+                    }
+                }
+            } else {
+                if (formState[key] == '') {
+                    return false;
+                }
+            }
+        }
+        return true
+    }, []);
     function onChange(e) {
         const { name, value } = e.target;
         setFormState((state) => {
@@ -39,6 +55,9 @@ export default function CreateEditForm({
     }
     async function onCreate(e) {
         e.preventDefault();
+        if (isValidInput(formState) == false) {
+            return
+        }
         try {
             closeModal()
             setIsLoading(true);
@@ -56,6 +75,9 @@ export default function CreateEditForm({
     }
     async function onEdit(e) {
         e.preventDefault();
+        if (isValidInput(formState) == false) {
+            return
+        }
         try {
             closeModal()
             setIsLoading(true);
