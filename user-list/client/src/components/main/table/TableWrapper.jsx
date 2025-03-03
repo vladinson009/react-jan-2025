@@ -29,13 +29,12 @@ export default function TableComponent() {
                 setIsLoading(false);
             }
         })()
-    }, [])
+    }, [setIsLoading, setIsError, setUsers])
 
     function onShowModal(type, _id) {
         _id ? setSelectedUser(users.find(el => el._id == _id)) : null
         setIsModal(state => ({ ...state, [type]: true }));
     }
-
     function onCloseModal() {
         setIsModal((state) => {
             const newState = {};
