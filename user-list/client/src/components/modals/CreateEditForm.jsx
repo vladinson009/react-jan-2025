@@ -9,7 +9,7 @@ export default function CreateEditForm({
     setIsError,
 
 }) {
-    const [formState, setFormState] = useState({
+    const initialValue = {
         firstName: '',
         lastName: '',
         email: '',
@@ -23,7 +23,8 @@ export default function CreateEditForm({
             street: '',
             streetNumber: ''
         }
-    })
+    }
+    const [formState, setFormState] = useState(user ? user : initialValue)
     function onChange(e) {
         const { name, value } = e.target;
         setFormState((state) => {
@@ -38,14 +39,40 @@ export default function CreateEditForm({
     }
     async function onCreate(e) {
         e.preventDefault();
-        const date = new Date().toISOString();
-        const data = { ...formState, updatedAt: date, createdAt: date };
-        const newUser = await userApi.createUser(data)
-        setUsers(state => ([...state, newUser]))
-        closeModal()
+        try {
+            closeModal()
+            setIsLoading(true);
+            const date = new Date().toISOString();
+            const data = { ...formState, updatedAt: date, createdAt: date };
+            const newUser = await userApi.createUser(data)
+            setUsers(state => ([...state, newUser]))
+
+            // eslint-disable-next-line no-unused-vars
+        } catch (error) {
+            setIsError(true);
+        } finally {
+            setIsLoading(false);
+        }
     }
-    async function onEdit() {
+    async function onEdit(e) {
         e.preventDefault();
+        try {
+            closeModal()
+            setIsLoading(true);
+            const date = new Date().toISOString();
+            const data = { ...formState, updatedAt: date };
+            const newUser = await userApi.updateByUserId(user._id, data);
+            setUsers(state => {
+                const idx = state.findIndex(el => el._id == user._id)
+                state.splice(idx, 1, newUser);
+                return [...state];
+            })
+            // eslint-disable-next-line no-unused-vars
+        } catch (error) {
+            setIsError(true);
+        } finally {
+            setIsLoading(false);
+        }
     }
     return (
         //  < !--Create / Edit Form component-- >
@@ -54,7 +81,7 @@ export default function CreateEditForm({
             <div className="modal">
                 <div className="user-container">
                     <header className="headers">
-                        <h2>Edit User/Add User</h2>
+                        <h2>{user ? 'Edit' : 'Add'} User</h2>
                         <button onClick={closeModal} className="btn close">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="xmark"
                                 className="svg-inline--fa fa-xmark" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
@@ -141,8 +168,17 @@ export default function CreateEditForm({
                             </div>
                         </div>
                         <div id="form-actions">
-                            <button onClick={onCreate} id="action-save" className="btn" type="submit">Save</button>
-                            <button onClick={closeModal} id="action-cancel" className="btn" type="button">
+                            <button
+                                onClick={user ? onEdit : onCreate}
+                                id="action-save"
+                                className="btn"
+                                type="submit"
+                            >{user ? 'Edit' : 'Add'}</button>
+                            <button
+                                onClick={closeModal}
+                                id="action-cancel"
+                                className="btn"
+                                type="button">
                                 Cancel
                             </button>
                         </div>
