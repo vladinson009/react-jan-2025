@@ -1,6 +1,10 @@
+import { useContext } from "react"
 import TableRow from "./TableRow"
+import { MyContext } from "../../../hooks/userContext"
 
 export default function Table({ users, onShowModal }) {
+    const { currentPage, pageSize } = useContext(MyContext);
+    const usersOnPage = users.slice(pageSize * (currentPage - 1), (currentPage) * pageSize)
     return (
         <table className="table">
             <thead>
@@ -97,7 +101,7 @@ export default function Table({ users, onShowModal }) {
             </thead>
             <tbody>
                 {/* <!-- Table row component --> */}
-                {users.map(user => <TableRow key={user._id} {...user} onShowModal={onShowModal} />)}
+                {usersOnPage.map(user => <TableRow key={user._id} {...user} onShowModal={onShowModal} />)}
 
             </tbody>
         </table>
