@@ -46,5 +46,165 @@
       "street": "456 Elm St",
       "streetNumber": "7"
     }
+  },
+  "1b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f": {
+    "_id": "1b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f",
+    "firstName": "Vladimir",
+    "lastName": "Petrov",
+    "email": "vladimirpetrov@example.com",
+    "phoneNumber": "9876543210",
+    "createdAt": "2024-11-01T07:21:00.358Z",
+    "updatedAt": "2024-11-01T07:22:30.358Z",
+    "imageUrl": "https://cdn3.vectorstock.com/i/1000x1000/54/17/person-gray-photo-placeholder-man-vector-24005417.jpg",
+    "address": {
+      "country": "Bulgaria",
+      "city": "Sofia",
+      "street": "stanmore road",
+      "streetNumber": "71"
+    }
+  },
+  "2b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f": {
+    "_id": "2b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f",
+    "firstName": "Ivan",
+    "lastName": "Kolev",
+    "email": "kolevivan@example.com",
+    "phoneNumber": "0884728125",
+    "createdAt": "2022-10-01T07:22:23.358Z",
+    "updatedAt": "2022-11-01T07:22:34.358Z",
+    "imageUrl": "https://cdn3.vectorstock.com/i/1000x1000/54/17/person-gray-photo-placeholder-man-vector-24005417.jpg",
+    "address": {
+      "country": "England",
+      "city": "London",
+      "street": "Marden street",
+      "streetNumber": "157"
+    }
+  },
+  "3b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f": {
+    "_id": "3b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f",
+    "firstName": "George",
+    "lastName": "Petersen",
+    "email": "georgepetersen@example.com",
+    "phoneNumber": "474676543210",
+    "createdAt": "2025-05-01T07:13:10.358Z",
+    "updatedAt": "2025-06-01T07:14:05.358Z",
+    "imageUrl": "https://cdn3.vectorstock.com/i/1000x1000/54/17/person-gray-photo-placeholder-man-vector-24005417.jpg",
+    "address": {
+      "country": "Poland",
+      "city": "Krakow",
+      "street": "Center",
+      "streetNumber": "17"
+    }
+  },
+  "4b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f": {
+    "_id": "4b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f",
+    "firstName": "Martin",
+    "lastName": "Smith",
+    "email": "martinsmith@example.com",
+    "phoneNumber": "4746443210",
+    "createdAt": "2021-05-01T07:06:19.358Z",
+    "updatedAt": "2021-06-01T07:07:16.358Z",
+    "imageUrl": "https://cdn3.vectorstock.com/i/1000x1000/54/17/person-gray-photo-placeholder-man-vector-24005417.jpg",
+    "address": {
+      "country": "Norway",
+      "city": "Oslo",
+      "street": "Karl Johans Gata",
+      "streetNumber": "12"
+    }
+  },
+  "5b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f": {
+    "_id": "5b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f",
+    "firstName": "Tom",
+    "lastName": "Rorland",
+    "email": "tomror@example.com",
+    "phoneNumber": "4723543210",
+    "createdAt": "2020-11-01T07:22:12.358Z",
+    "updatedAt": "2020-11-01T07:23:04.358Z",
+    "imageUrl": "https://cdn3.vectorstock.com/i/1000x1000/54/17/person-gray-photo-placeholder-man-vector-24005417.jpg",
+    "address": {
+      "country": "Norway",
+      "city": "Fetsund",
+      "street": "Hovedgata",
+      "streetNumber": "7"
+    }
+  },
+  "6b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f": {
+    "_id": "6b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f",
+    "firstName": "Ivan",
+    "lastName": "Ivanov",
+    "email": "ivanivanov@example.com",
+    "phoneNumber": "474612543210",
+    "createdAt": "2020-11-01T07:12:56.358Z",
+    "updatedAt": "2023-11-01T07:23:59.358Z",
+    "imageUrl": "https://cdn3.vectorstock.com/i/1000x1000/54/17/person-gray-photo-placeholder-man-vector-24005417.jpg",
+    "address": {
+      "country": "Bulgaria",
+      "city": "Plovdiv",
+      "street": "Main street",
+      "streetNumber": "33"
+    }
+  },
+  "8b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f": {
+    "_id": "8b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f",
+    "firstName": "Michal",
+    "lastName": "Brown",
+    "email": "michalbrown@example.com",
+    "phoneNumber": "47461543210",
+    "createdAt": "2019-11-01T07:23:55.358Z",
+    "updatedAt": "2023-11-01T07:05:12.358Z",
+    "imageUrl": "https://cdn3.vectorstock.com/i/1000x1000/54/17/person-gray-photo-placeholder-man-vector-24005417.jpg",
+    "address": {
+      "country": "Poland",
+      "city": "Gdansk",
+      "street": "Gdynia",
+      "streetNumber": "45"
+    }
+  },
+  "9b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f": {
+    "_id": "9b3143e1-d6df-4e67-bd7e-5f8b03f2fd3f",
+    "firstName": "Peter",
+    "lastName": "Petrov",
+    "email": "peterpetrov@example.com",
+    "phoneNumber": "462776543210",
+    "createdAt": "2016-01-01T07:15:52.358Z",
+    "updatedAt": "2021-02-01T07:16:12.358Z",
+    "imageUrl": "https://cdn3.vectorstock.com/i/1000x1000/54/17/person-gray-photo-placeholder-man-vector-24005417.jpg",
+    "address": {
+      "country": "Bulgaria",
+      "city": "Varna",
+      "street": "Ul glavnata",
+      "streetNumber": "54"
+    }
+  },
+  "2a3143e1-d6df-4e67-bd7e-5f8b03f2fd3f": {
+    "_id": "2a3143e1-d6df-4e67-bd7e-5f8b03f2fd3f",
+    "firstName": "Borislav",
+    "lastName": "Borislavov",
+    "email": "borislavborislavov@example.com",
+    "phoneNumber": "0784912324",
+    "createdAt": "2021-03-01T07:13:13.358Z",
+    "updatedAt": "2024-23-01T07:14:14.358Z",
+    "imageUrl": "https://cdn3.vectorstock.com/i/1000x1000/54/17/person-gray-photo-placeholder-man-vector-24005417.jpg",
+    "address": {
+      "country": "England",
+      "city": "Hereford",
+      "street": "HR1 ASD",
+      "streetNumber": "44"
+    }
+  },
+  "3a3143e1-d6df-4e67-bd7e-5f8b03f2fd3f": {
+    "_id": "3a3143e1-d6df-4e67-bd7e-5f8b03f2fd3f",
+    "firstName": "Aleksandar",
+    "lastName": "Aleksandrov",
+    "email": "aleksandaraleksandrov@example.com",
+    "phoneNumber": "08765198888",
+    "createdAt": "2014-12-01T07:23:14.358Z",
+    "updatedAt": "2015-03-01T07:12:31.358Z",
+    "imageUrl": "https://cdn3.vectorstock.com/i/1000x1000/54/17/person-gray-photo-placeholder-man-vector-24005417.jpg",
+    "address": {
+      "country": "Sweeden",
+      "city": "Stockholm",
+      "street": "Hovedgata",
+      "streetNumber": "333"
+    }
   }
 }
