@@ -1,6 +1,6 @@
 import Pagination from "./pagination/Pagination";
 import SearchBar from "./search/SearchBar";
-import TableComponent from "./table/TableComponent";
+import TableComponent from "./table/TableWrapper";
 
 export default function Main() {
 
