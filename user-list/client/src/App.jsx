@@ -13,5 +13,5 @@ function App() {
     </MyProvider>
   )
 }
-
+// ! SORT BY CRITERIA MUST BE DONE
 export default App
