@@ -8,7 +8,6 @@ export default function TableRow({
     phoneNumber,
     createdAt,
     imageUrl,
-    address,
     onShowModal,
 }) {
 
