@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TableRow from "./TableRow";
 import userApi from "../../../api/userApi";
 import NoUsers from "./overlap/NoUsers";
@@ -7,11 +7,13 @@ import OnError from "./overlap/OnError";
 import CreateEditForm from "../../modals/CreateEditForm";
 import DeleteUser from "../../modals/DeleteUser";
 import UserDetails from "../../modals/UserDetails";
+import { MyContext } from "../../../hooks/userContext";
 
 export default function TableComponent() {
-    const [users, setUsers] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
+    const { users, setUsers, isLoading, setIsLoading, isError, setIsError } = useContext(MyContext)
+    // const [users, setUsers] = useState([]);
+
+
     const [isModal, setIsModal] = useState({ create: false, edit: false, delete: false, info: false });
     const [selectedUSer, setSelectedUser] = useState({});
 
@@ -21,6 +23,7 @@ export default function TableComponent() {
                 setIsLoading(true);
                 const data = Object.values(await userApi.getAll())
                 setUsers(data);
+                // setValue(data);
                 // eslint-disable-next-line no-unused-vars
             } catch (error) {
                 setIsError(true);
