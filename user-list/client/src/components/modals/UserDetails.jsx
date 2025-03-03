@@ -1,14 +1,16 @@
-export default function UserDetails({ user, closeModal, setIsError }) {
+import dateParser from "../../utils/dateParser"
 
+export default function UserDetails({ user, closeModal }) {
+    const { country, city, street, streetNumber } = user.address
     return (
         //  < !--User details component-- >
         < div className="overlay" >
-            <div className="backdrop"></div>
+            <div onClick={closeModal} className="backdrop"></div>
             <div className="modal">
                 <div className="detail-container">
                     <header className="headers">
                         <h2>User Detail</h2>
-                        <button className="btn close">
+                        <button onClick={closeModal} className="btn close">
                             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="xmark"
                                 className="svg-inline--fa fa-xmark" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                                 <path fill="currentColor"
@@ -23,20 +25,20 @@ export default function UserDetails({ user, closeModal, setIsError }) {
                                 className="image" />
                         </div>
                         <div className="user-details">
-                            <p>User Id: <strong>62bb0c0eda039e2fdccba57b</strong></p>
+                            <p>User Id: <strong>{user._id}</strong></p>
                             <p>
                                 Full Name:
-                                <strong> Peter Johnson </strong>
+                                <strong> {user.firstName} {user.lastName} </strong>
                             </p>
-                            <p>Email: <strong>peter@abv.bg</strong></p>
-                            <p>Phone Number: <strong>0812345678</strong></p>
+                            <p>Email: <strong>{user.email}</strong></p>
+                            <p>Phone Number: <strong>{user.phoneNumber}</strong></p>
                             <p>
                                 Address:
-                                <strong> Bulgaria, Sofia, Aleksandar Malinov 78 </strong>
+                                <strong> {country}, {city}, {street} ${streetNumber} </strong>
                             </p>
 
-                            <p>Created on: <strong>Wednesday, June 28, 2022</strong></p>
-                            <p>Modified on: <strong>Thursday, June 29, 2022</strong></p>
+                            <p>Created on: <strong>{dateParser(user.createdAt, true)}</strong></p>
+                            <p>Modified on: <strong>{dateParser(user.updatedAt, true)}</strong></p>
                         </div>
                     </div>
                 </div>
