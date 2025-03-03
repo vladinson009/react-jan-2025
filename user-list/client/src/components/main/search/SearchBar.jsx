@@ -3,7 +3,7 @@ import { MyContext } from "../../../hooks/userContext";
 import userApi from "../../../api/userApi";
 
 export default function SearchBar() {
-    const { setUsers, setIsLoading, setIsError } = useContext(MyContext);
+    const { setUsers, setIsLoading, setIsError, setIsNoContent } = useContext(MyContext);
     const [input, setInput] = useState({ search: '', criteria: '' });
     function onSearch(e) {
         e.preventDefault();
@@ -27,10 +27,17 @@ export default function SearchBar() {
                     }
                 })
             setUsers(filteredUsers);
-        }).catch(err => {
+            if (filteredUsers.length < 1) {
+                setIsNoContent(true);
+            }
+            else {
+                setIsNoContent(false);
+            }
+        }).catch(() => {
             setIsError(true);
         }).finally(() => {
             setIsLoading(false)
+
         })
     }
 
