@@ -1,22 +1,59 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import TableRow from "./TableRow"
 import { MyContext } from "../../../hooks/userContext"
 
+const tuples = {
+    'First name': 'firstName',
+    'Last name': 'lastName',
+    'Email': 'email',
+    'Phone': 'phoneNumber',
+    'Created': 'createdAt',
+}
 export default function Table({ users, onShowModal }) {
+    const [pureUsers, setPureUsers] = useState(users)
     const { currentPage, pageSize } = useContext(MyContext);
-    const usersOnPage = users.slice(pageSize * (currentPage - 1), (currentPage) * pageSize)
+    const [usersOnPage, setUsersOnPage] = useState(pureUsers.slice(pageSize * (currentPage - 1), (currentPage) * pageSize))
+    const [sortingOrder, setSortingOrder] = useState(true);
+    const [isActive, setIsActive] = useState({ firstName: false, lastName: false, email: false, phoneNumber: false, created: false })
+
+    useEffect(() => {
+        setUsersOnPage(pureUsers.slice(pageSize * (currentPage - 1), (currentPage) * pageSize))
+
+    }, [currentPage, pageSize, pureUsers])
+
+    function onSort(e) {
+        const textContent = e.target.textContent;
+        const criteria = tuples[textContent];
+        setIsActive(state => {
+            const newState = { ...state };
+            for (const el in newState) {
+                console.log(el);
+                el == criteria ? newState[el] = true : newState[el] = false
+            }
+            return newState
+        })
+        setSortingOrder(state => !state);
+        setPureUsers(state => {
+            if (sortingOrder) {
+                return [...state].toSorted((a, b) => a[criteria].localeCompare(b[criteria]))
+            } else {
+                return [...state].toSorted((a, b) => b[criteria].localeCompare(a[criteria]))
+            }
+        })
+
+    }
     return (
         <table className="table">
             <thead>
                 <tr>
                     <th>Image</th>
-                    <th>
+                    <th onClick={onSort}>
                         First name<svg
                             aria-hidden="true"
                             focusable="false"
                             data-prefix="fas"
                             data-icon="arrow-down"
-                            className="icon svg-inline--fa fa-arrow-down Table_icon__+HHgn"
+                            className={`icon svg-inline--fa fa-arrow-down Table_icon__+HHgn ${isActive.firstName && 'active-icon'}`}
                             role="img"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 384 512"
@@ -27,13 +64,13 @@ export default function Table({ users, onShowModal }) {
                             ></path>
                         </svg>
                     </th>
-                    <th>
+                    <th onClick={onSort}>
                         Last name<svg
                             aria-hidden="true"
                             focusable="false"
                             data-prefix="fas"
                             data-icon="arrow-down"
-                            className="icon svg-inline--fa fa-arrow-down Table_icon__+HHgn"
+                            className={`icon svg-inline--fa fa-arrow-down Table_icon__+HHgn ${isActive.lastName && 'active-icon'}`}
                             role="img"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 384 512"
@@ -44,13 +81,13 @@ export default function Table({ users, onShowModal }) {
                             ></path>
                         </svg>
                     </th>
-                    <th>
+                    <th onClick={onSort}>
                         Email<svg
                             aria-hidden="true"
                             focusable="false"
                             data-prefix="fas"
                             data-icon="arrow-down"
-                            className="icon svg-inline--fa fa-arrow-down Table_icon__+HHgn"
+                            className={`icon svg-inline--fa fa-arrow-down Table_icon__+HHgn ${isActive.email && 'active-icon'}`}
                             role="img"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 384 512"
@@ -61,13 +98,13 @@ export default function Table({ users, onShowModal }) {
                             ></path>
                         </svg>
                     </th>
-                    <th>
+                    <th onClick={onSort}>
                         Phone<svg
                             aria-hidden="true"
                             focusable="false"
                             data-prefix="fas"
                             data-icon="arrow-down"
-                            className="icon svg-inline--fa fa-arrow-down Table_icon__+HHgn"
+                            className={`icon svg-inline--fa fa-arrow-down Table_icon__+HHgn ${isActive.phoneNumber && 'active-icon'}`}
                             role="img"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 384 512"
@@ -78,14 +115,14 @@ export default function Table({ users, onShowModal }) {
                             ></path>
                         </svg>
                     </th>
-                    <th>
+                    <th onClick={onSort}>
                         Created
                         <svg
                             aria-hidden="true"
                             focusable="false"
                             data-prefix="fas"
                             data-icon="arrow-down"
-                            className="icon active-icon svg-inline--fa fa-arrow-down Table_icon__+HHgn"
+                            className={`icon svg-inline--fa fa-arrow-down Table_icon__+HHgn ${isActive.created && 'active-icon'}`}
                             role="img"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 384 512"
