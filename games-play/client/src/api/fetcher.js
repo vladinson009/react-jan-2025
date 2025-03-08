@@ -18,16 +18,17 @@ async function fetcher(url, method, data) {
   try {
     const response = await fetch(host + url, options);
     if (response.ok == false) {
-      if (response.status == 204) {
-        return response;
-      }
       if (response.status == 403) {
         clearUserData();
       }
       const error = await response.json();
       throw new Error(error.message);
     }
-    return response.json();
+    if (response.status == 204) {
+      return response;
+    } else {
+      return response.json();
+    }
   } catch (error) {
     throw error.message;
   }
