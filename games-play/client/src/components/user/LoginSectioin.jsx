@@ -18,8 +18,8 @@ export default function LoginSection() {
                 email: response.email,
                 accessToken: response.accessToken
             }
-            setUserData(userData);
             setUserSession(userData);
+            setUserData(userData);
             e.target.reset();
             navigate('/');
         }).catch(err => {

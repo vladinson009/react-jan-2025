@@ -2,6 +2,7 @@ import { useActionState, useContext } from "react";
 import userApi from "../../api/userApi";
 import context from "../../context/userContext";
 import { Link } from "react-router-dom";
+import { setUserData } from "../../utils/userData";
 
 export default function RegisterSection() {
     const initialState = { email: '', password: '', 'confirm-password': '' }
@@ -18,7 +19,7 @@ export default function RegisterSection() {
                 accessToken: user.accessToken,
             }
             setUserSession(userData);
-            setUserSession(userData);
+            setUserData(userData);
             navigate('/');
         } catch (error) {
             return { userInput, error }
