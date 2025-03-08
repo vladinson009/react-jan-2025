@@ -10,6 +10,7 @@ import CreateGame from "./components/game/CreateGame"
 import DetailsGame from "./components/game/DetailsGame"
 import EditGame from "./components/game/EditGame"
 import MyProvider from "./context/contextProvider"
+import Logout from "./components/user/Logout"
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path="/users">
           <Route path="login" element={<LoginSection />} />
           <Route path="register" element={<RegisterSection />} />
+          <Route path="logout" element={<Logout />} />
         </Route>
 
       </Routes >
