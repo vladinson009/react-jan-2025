@@ -1,5 +1,5 @@
 function getUserData() {
-  const data = localStorage.get('userData');
+  const data = localStorage.getItem('userData');
   if (data) {
     return JSON.parse(data);
   } else {
@@ -7,7 +7,7 @@ function getUserData() {
   }
 }
 function setUserData(userData) {
-  localStorage.set('userData', JSON.stringify(userData));
+  localStorage.setItem('userData', JSON.stringify(userData));
 }
 function clearUserData() {
   localStorage.removeItem('userData');
