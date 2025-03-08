@@ -1,4 +1,4 @@
-import { post } from './fetcher';
+import { post, get } from './fetcher';
 
 function login(userInput) {
   if (userInput.email == '' || userInput.password == '') {
@@ -19,8 +19,11 @@ function register(userInput) {
     throw error.message;
   }
 }
-
+function logout() {
+  return get('/users/logout');
+}
 export default {
   login,
   register,
+  logout,
 };
