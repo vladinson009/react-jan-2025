@@ -1,23 +1,40 @@
-export default function DetailsGame() {
+import { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom"
+import gameApi from "../../api/gameApi";
+import context from "../../context/userContext";
 
+export default function DetailsGame() {
+    const { userSession, navigate } = useContext(context);
+    const { gameId } = useParams();
+    const [game, setGame] = useState({
+        _ownerId: '',
+        title: '',
+        category: '',
+        maxLevel: '',
+        imageUrl: '',
+        summary: '',
+        _createdOn: '',
+        _id: '',
+    });
+    useEffect(() => {
+        gameApi.getById(gameId).then(result => {
+            setGame(result);
+        })
+    }, [gameId]);
+
+    const isOwner = userSession && userSession._id == game?._ownerId;
     return (
         <section id="game-details">
             <h1>Game Details</h1>
             <div className="info-section">
                 <div className="game-header">
-                    <img className="game-img" src="images/MineCraft.png" />
-                    <h1>Bright</h1>
-                    <span className="levels">MaxLevel: 4</span>
-                    <p className="type">Action, Crime, Fantasy</p>
+                    <img className="game-img" src={`/src/assets${game.imageUrl}`} />
+                    <h1>{game.title}</h1>
+                    <span className="levels">MaxLevel: {game.maxLevel}</span>
+                    <p className="type">{game.category}</p>
                 </div>
 
-                <p className="text">
-                    Set in a world where fantasy creatures live side by side with humans. A
-                    human cop is forced to work with an Orc to find a weapon everyone is
-                    prepared to kill for. Set in a world where fantasy creatures live side by
-                    side with humans. A human cop is forced to work with an Orc to find a
-                    weapon everyone is prepared to kill for.
-                </p>
+                <p className="text">{game.summary}</p>
 
                 {/* <!-- Bonus ( for Guests and Users ) --> */}
                 <div className="details-comments">
@@ -36,10 +53,11 @@ export default function DetailsGame() {
                 </div>
 
                 {/* <!-- Edit/Delete buttons ( Only for creator of this game )  --> */}
-                <div className="buttons">
-                    <a href="#" className="button">Edit</a>
-                    <a href="#" className="button">Delete</a>
-                </div>
+                {isOwner &&
+                    <div className="buttons">
+                        <Link to={`/games/edit/${game._id}`} className="button">Edit</Link>
+                        <Link to={`/games/delete/${game._id}`} className="button">Delete</Link>
+                    </div>}
             </div>
 
             {/* <!-- Bonus --> */}
