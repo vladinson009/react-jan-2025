@@ -1,18 +1,19 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import context from "../../context/userContext";
 import userApi from "../../api/userApi";
 import { clearUserData } from "../../utils/userData";
+import { Navigate } from "react-router-dom";
 
 
 export default function Logout() {
-    const { setUserSession, navigate } = useContext(context)
+    const { setUserSession } = useContext(context)
 
-    userApi.logout().then(() => {
-        clearUserData();
+    useEffect(() => {
+        userApi.logout()
         setUserSession(null);
-    }).catch(err => {
-        return alert(err);
-    })
-    navigate('/')
+        clearUserData();
+    }, [setUserSession])
+
+    return <Navigate to='/' />
 }
