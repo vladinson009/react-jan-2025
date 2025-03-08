@@ -9,10 +9,14 @@ import Catalogue from "./components/game/Catalogue"
 import CreateGame from "./components/game/CreateGame"
 import DetailsGame from "./components/game/DetailsGame"
 import EditGame from "./components/game/EditGame"
+import MyProvider from "./context/contextProvider"
+
 
 function App() {
+
+
   return (
-    <>
+    <MyProvider>
       <Header />
 
       <Routes>
@@ -31,7 +35,7 @@ function App() {
         </Route>
 
       </Routes >
-    </>
+    </MyProvider>
   )
 }
 
